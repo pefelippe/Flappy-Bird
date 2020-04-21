@@ -1,10 +1,8 @@
-
 function novoElemento (tagName, className) {
     const elem = document.createElement(tagName);
     elem.className=className;
     return elem;
 }
-
 function novaBarreira(reversa = false) {
     this.elemento = novoElemento("div", 'barreira');
 
@@ -43,7 +41,7 @@ function parDeBarreira(altura, abertura, x) {
     this.setX(x)
 }
 
-function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
+ function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
     this.pares = [
         new parDeBarreira(altura, abertura, largura),
         new parDeBarreira(altura, abertura, largura + 1 * espaco),
@@ -51,7 +49,7 @@ function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
         new parDeBarreira(altura, abertura, largura + 3 * espaco)
     ];
 
-    const deslocamento = 4;
+    const deslocamento = 3;
     
     this.animar = () => {
         this.pares.forEach(par => {
@@ -72,39 +70,4 @@ function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
     }
 }
 
-
-function Passaro (alturaJogo) {
-    let voando = false;
-
-    this.elemento = novoElemento('img', 'passaro');
-    this.elemento.src = './passaro.png';
-
-    this.getY = () => parseInt(this.elemento.style.bottom.split('px')[0]);
-    this.setY = y => this.elemento.style.bottom = `${y}px`;
-
-    window.onkeydown = e => voando = true;
-    window.onkeyup = e => voando = false;
-
-    this.animar = () => {
-        const novoY = this.getY() + (voando ? 10 : -5)
-        const alturaMax = alturaJogo - this.elemento.clientWidth
-
-        if (novoY <= 0) this.setY(0);
-        else if (novoY >= alturaMax) this.setY(alturaMax);
-        else this.setY(novoY)
-    }
-
-    this.setY(alturaJogo / 2);
-}
-
-
-const barreiras = new Barreiras(700, 1200, 200, 400);
-const passaro = new Passaro(700)
-const areaJogo = document.querySelector('[wm-flappy]');
-areaJogo.appendChild(passaro.elemento)
-barreiras.pares.forEach(par => areaJogo.appendChild(par.elemento))
-
-setInterval(() => {
-    barreiras.animar()
-    passaro.animar()
-}, 20)
+exports.Barreiras = Barreiras
