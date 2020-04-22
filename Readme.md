@@ -10,3 +10,11 @@ Um clone do famoso **Flappy Bird**.
 - HTML
 - CSS
 - JS
+
+
+## Como Rodar
+```bash
+    git clone https://github.com/pefelippe/Flappy-Bird
+    cd Flappy-Bird
+    google-chrome flappy.html
+```
