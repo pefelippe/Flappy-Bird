@@ -78,7 +78,7 @@ function Passaro (alturaJogo) {
     let voando = false;
 
     this.elemento = novoElemento('img', 'passaro');
-    this.elemento.src = './passaro.png';
+    this.elemento.src = './assets/passaro.png';
 
     this.getY = () => parseInt(this.elemento.style.bottom.split('px')[0]);
     this.setY = y => this.elemento.style.bottom = `${y}px`;
@@ -100,11 +100,10 @@ function Passaro (alturaJogo) {
 
 function Progresso(){
     this.elemento = novoElemento('span', 'progresso');
-    this.atualizarPontos = pontos => {
-        this.elemento.innerHTML = pontos;
+    this.atualizarPontos = (value) => {
+        this.elemento.innerHTML = value;
 
    }
-   
    this.atualizarPontos(0)
 }
 
@@ -134,6 +133,14 @@ function colision(passaro, barreiras){
     return colision
 }
 
+function endGame(msg) {
+    this.elemento = novoElemento('span', 'end-game');
+    this.elemento = novoElemento('p', 'end-game');
+
+    this.mostrar = () => {
+        this.elemento.innerHTML = 'Fim do Jogo';
+   }
+}
 
 function flappyBird(){
     let pontos = 0;
@@ -146,9 +153,12 @@ function flappyBird(){
     const barreiras = new Barreiras(altura, largura, 200, 400, 
         () => progresso.atualizarPontos(++pontos) );
     const passaro   = new Passaro(altura)
+    const endgame = new endGame();
 
     areaJogo.appendChild(passaro.elemento)
     areaJogo.appendChild(progresso.elemento)
+    areaJogo.appendChild(endgame.elemento)
+
     barreiras.pares.forEach(par => areaJogo.appendChild(par.elemento))
 
     this.start = () => {
@@ -158,7 +168,8 @@ function flappyBird(){
 
             if (colision(passaro, barreiras)) {
                 clearInterval(temporizador)
-                
+                // endgame.mostrar()
+
             }
 
         }, 20)
