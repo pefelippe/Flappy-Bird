@@ -1,4 +1,4 @@
-<h1>
+<h1 align="center">
     <img src="https://ik.imagekit.io/b3lgyd9p0f/ezgif.com-video-to-gif_1CIqkNdPZ.gif">
 </h1>
 
