@@ -102,11 +102,38 @@ function Progresso(){
     this.elemento = novoElemento('span', 'progresso');
     this.atualizarPontos = pontos => {
         this.elemento.innerHTML = pontos;
-        console.log(pontos)
+
    }
    
    this.atualizarPontos(0)
 }
+
+function isSobreposto (elemA, elemB){
+    const a = elemA.getBoundingClientRect();
+    const b = elemB.getBoundingClientRect();
+
+    const horizontal = a.left + a.width >= b.left && b.left + b.width >= a.left;
+    const vertical = a.top + a.height >= b.top && b.top + b.height >= a.top
+
+    return horizontal && vertical;
+}
+
+function colision(passaro, barreiras){
+    let colision = false
+
+    barreiras.pares.forEach(parDeBarreira => {
+        if(!colision){
+            const sup = parDeBarreira.superior.elemento;
+            const inf = parDeBarreira.inferior.elemento;
+
+            colision = isSobreposto(passaro.elemento, sup)
+                    || isSobreposto(passaro.elemento, inf)   
+        }
+    })
+
+    return colision
+}
+
 
 function flappyBird(){
     let pontos = 0;
@@ -128,6 +155,12 @@ function flappyBird(){
         const temporizador = setInterval(() => {
             barreiras.animar()
             passaro.animar()
+
+            if (colision(passaro, barreiras)) {
+                clearInterval(temporizador)
+                
+            }
+
         }, 20)
     }
 }
