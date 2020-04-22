@@ -87,7 +87,7 @@ function Passaro (alturaJogo) {
     window.onkeyup = e => voando = false;
 
     this.animar = () => {
-        const novoY = this.getY() + (voando ? 10 : -5)
+        const novoY = this.getY() + (voando ? 8 : -5)
         const alturaMax = alturaJogo - this.elemento.clientWidth
 
         if (novoY <= 0) this.setY(0);
@@ -168,7 +168,8 @@ function flappyBird(){
 
             if (colision(passaro, barreiras)) {
                 clearInterval(temporizador)
-                // endgame.mostrar()
+                
+
 
             }
 
